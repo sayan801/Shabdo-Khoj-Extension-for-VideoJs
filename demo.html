@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shobdhokhoj | add tags to your video</title>
+
+  <!-- Chang URLs to wherever Video.js files will be hosted -->
+  <link href="assests/css/video-js.css" rel="stylesheet" type="text/css">
+  <!-- Markers css -->
+  <link href="assests/css/videojs-markers.css" rel="stylesheet">
+  <!-- Overlay css -->
+  <link href="assests/css/videojs-overlay.css" rel="stylesheet">
+  <!-- Shobdhokhoj css -->
+  <link href="assests/css/shobdhokhoj.css" rel="stylesheet">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+  <script src="assests/js/video.js"></script>
+  <!-- Markers js -->
+  <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script src='assests/js/videojs-markers.js'></script>
+  <!-- Overlay js -->
+  <script src='assests/js/videojs-overlay.js'></script>
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+  <script>
+    videojs.options.flash.swf = "video-js.swf";
+  </script>
+  <style>
+
+  </style>
+</head>
+<body>
+
+  <video id="test_video" controls preload="none" class="video-js vjs-default-skin" width="640" height="264"
+      poster="http://video-js.zencoder.com/oceans-clip.png"
+      data-setup="{}">
+    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+    <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+    <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+    <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+    <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+  </video>
+  <br/>
+  <!--
+  <span class='next badge'>Next</span>
+  <span class='prev'>Prev</span>
+  <span class='remove'>Remove</span>
+  <span class='add'>Add</span>
+  <span class='reset'>Reset</span>
+  <span class='destroy'>Destroy</span>
+  -->
+</body>
+<script>
+   // initialize video.js
+    var shobdho = videojs('test_video');
+    
+	var chbx='<form id="demo-2"><input type="search" placeholder="Search" id="tags"></form>';
+    
+	// fire up the plugin
+	shobdho.overlay({
+      content: chbx,
+      overlays: [{
+        start: 'play',
+        align: 'bottom-right'
+      }]
+    });   
+   //load the marker plugin
+   shobdho.markers({
+      markerTip:{
+         display: true,
+         text: function(marker) {
+            return marker.text;
+         }
+      },
+      breakOverlay:{
+         display: false,
+         displayTime: 3,
+         text: function(marker) {
+            return "This is an break overlay: " + marker.text;
+         }
+      },
+      onMarkerReached: function(marker) {
+        //alert("OK"); 
+      },
+      markers: [
+         {
+            time: 9.5,
+            text: "<div class='badge'>Animal</div><div class='badge'>Honest</div><div class='badge'>Education</div>"
+         },
+         {
+            time: 16,
+            text: "<div class='badge'>Briliant</div><div class='badge'>Example</div><div class='badge'>Tree</div>"
+         },
+         {
+            time: 23.6,
+            text: "<div class='badge'>Find</div> <div class='badge'>Truth</div> <div class='badge'>Jungle</div>"
+         },
+         {
+            time: 28,
+            text: "<div class='badge'>Technology</div> <div class='badge'>Forest</div> <div class='badge'>World</div>"
+         },
+         {
+            time: 36,
+            text: "<div class='badge'>Happy</div> <div class='badge'>Book</div>"
+         }
+      ]
+   });
+/*   
+   $(".next").click(function(){
+      shobdho.markers.next();
+   });
+   $(".prev").click(function(){
+      shobdho.markers.prev();
+   });
+   $(".remove").click(function(){
+      shobdho.markers.remove([1,2]);
+   })
+   $(".add").click(function(){
+      shobdho.markers.add([{
+            time: 40,
+            text: "I'm NEW"
+         }]);
+   });
+   $(".reset").click(function(){
+      shobdho.markers.reset([{
+            time: 40,
+            text: "I'm NEW"
+         },
+         {
+            time:20,
+            text: "Brank new"
+         }]);
+   });
+   $(".destroy").click(function(){
+      shobdho.markers.destroy();
+   })
+*/   
+</script>
+</html>
