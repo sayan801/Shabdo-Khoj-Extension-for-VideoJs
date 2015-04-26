@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Shobdhokhoj | add tags to your video</title>
-
+  <meta charset="utf-8">
   <!-- Chang URLs to wherever Video.js files will be hosted -->
   <link href="assests/css/video-js.css" rel="stylesheet" type="text/css">
   <!-- Markers css -->
@@ -14,7 +14,9 @@
   <!-- video.js must be in the <head> for older IEs to work. -->
   <script src="assests/js/video.js"></script>
   <!-- Markers js -->
+  
   <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src='assests/js/videojs-markers.js'></script>
   <!-- Overlay js -->
   <script src='assests/js/videojs-overlay.js'></script>
@@ -22,9 +24,7 @@
   <script>
     videojs.options.flash.swf = "video-js.swf";
   </script>
-  <style>
 
-  </style>
 </head>
 <body>
 
@@ -51,17 +51,34 @@
 <script>
    // initialize video.js
     var shobdho = videojs('test_video');
+var myFunc = function(){
+  //$("#tags").focus();
+  var availableTags = [
+      "Animal",
+"Honest",
+"Education",
+"Briliant",
+"Example",
+"Tree",
+"Find",
+"Truth",
+"Jungle",
+"Technology",
+"Forest",
+"World",
+"Happy",
+"Book"
+    ];
+	$("#tags").focus(function(){
+		$( "#tags" ).autocomplete({
+			source: availableTags
+		});
+	});
     
-	var chbx='<form id="demo-2"><input type="search" placeholder="Search" id="tags"></form>';
-    
-	// fire up the plugin
-	shobdho.overlay({
-      content: chbx,
-      overlays: [{
-        start: 'play',
-        align: 'bottom-right'
-      }]
-    });   
+};
+
+shobdho.on('play', myFunc);
+
    //load the marker plugin
    shobdho.markers({
       markerTip:{
@@ -103,10 +120,9 @@
          }
       ]
    });
-/*   
-   $(".next").click(function(){
-      shobdho.markers.next();
-   });
+  
+   
+/* 
    $(".prev").click(function(){
       shobdho.markers.prev();
    });
@@ -132,6 +148,16 @@
    $(".destroy").click(function(){
       shobdho.markers.destroy();
    })
-*/   
+*/
+    var searchBox='<form id="demo-2"><input type="search" placeholder="Search" id="tags"></form>';
+    
+	// fire up the plugin
+	shobdho.overlay({
+      content: searchBox,
+      overlays: [{
+        start: 'play',
+        align: 'bottom-right'
+      }]
+    });   
 </script>
 </html>

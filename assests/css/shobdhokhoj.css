@@ -29,7 +29,7 @@ input[type=search] {
 }
 input[type=search]:focus {
 	width: 130px;
-	background-color: #fff;
+	background-color: transparent;
 	border-color: #66CC75;
 	
 	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
@@ -53,13 +53,16 @@ input::-webkit-input-placeholder {
 	cursor: pointer;
 }
 #demo-2 input[type=search]:hover {
-	background-color: #fff;
+	border-color: #66CC75;	
+	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+	box-shadow: 0 0 5px rgba(109,207,246,.5);
 }
 #demo-2 input[type=search]:focus {
 	width: 130px;
 	padding-left: 32px;
 	color: #000;
-	background-color: #fff;
+	background-color: transparent;
 	cursor: auto;
 }
 #demo-2 input:-moz-placeholder {
@@ -68,7 +71,26 @@ input::-webkit-input-placeholder {
 #demo-2 input::-webkit-input-placeholder {
 	color: transparent;
 }
-
+ul {
+    list-style-type: none;
+    color:white;
+    width: 50px;
+	background:transparent;
+}
+#ui-id-1 li {
+      display:table;
+	  vertical-align: middle;
+	  width:70%;
+      margin: 2px;
+      padding: 0 5px;
+      line-height: 16px;
+      font-size: 11px;
+      color: black;
+      border-radius: 2px;
+	  font-weight:bold;
+      background-color: #D56446; /* IE8 fallback */
+      background-color: rgba(213, 100, 70, 0.9);
+}
 /* css for tag badges */
 
 .badge {
