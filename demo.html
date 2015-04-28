@@ -31,12 +31,9 @@
   <video id="test_video" controls preload="none" class="video-js vjs-default-skin" width="640" height="264"
       poster="http://video-js.zencoder.com/oceans-clip.png"
       data-setup="{}">
-<!--  
- <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
     <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
     <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
--->
-    <source src="lg.mp4" type='video/mp4' />
     <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
     <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
     <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
@@ -50,27 +47,47 @@
   <span class='reset'>Reset</span>
   <span class='destroy'>Destroy</span>
   -->
+  <div id="newVal"></div>
 </body>
 <script>
-   // initialize video.js
-    var shobdho = videojs('test_video');
+var sampleMarker = [];//formatted array of tag for markers
+//parsing json file
+$.getJSON( "sample.json", function( data ) {
+
+     $.each( data.transcript.text, function( key , value ) {   
+	        var output="<p>";
+			var startTime = value.start ;
+			var tagValue = value.text;
+			$.trim(tagValue);
+			tagValue = tagValue.replace(/\s+/g, '</div><div class="badge">');
+			tagValue = "<div class='badge'>" + tagValue;
+			tagValue += "</div>";
+			itemTag = {}
+			itemTag ["time"] = startTime;
+			itemTag ["text"] = tagValue;
+			sampleMarker.push(itemTag);
+    });        
+});
+
+// initialize video.js
+var shobdho = videojs('test_video');
+//Search tag
 var myFunc = function(){
-  //$("#tags").focus();
   var availableTags = [
-      "Animal",
-"Honest",
-"Education",
-"Briliant",
-"Example",
-"Tree",
-"Find",
-"Truth",
-"Jungle",
-"Technology",
-"Forest",
-"World",
-"Happy",
-"Book"
+		"Animal",
+		"Honest",
+		"Education",
+		"Briliant",
+		"Example",
+		"Tree",
+		"Find",
+		"Truth",
+		"Jungle",
+		"Technology",
+		"Forest",
+		"World",
+		"Happy",
+		"Book"
     ];
 	$("#tags").focus(function(){
 		$( "#tags" ).autocomplete({
@@ -81,9 +98,8 @@ var myFunc = function(){
 };
 
 shobdho.on('play', myFunc);
-
-   //load the marker plugin
-   shobdho.markers({
+//load the marker plugin
+shobdho.markers({
       markerTip:{
          display: true,
          text: function(marker) {
@@ -97,70 +113,17 @@ shobdho.on('play', myFunc);
             return "This is an break overlay: " + marker.text;
          }
       },
-      onMarkerReached: function(marker) {
-        //alert("OK"); 
-      },
-      markers: [
-         {
-            time: 9.5,
-            text: "<div class='badge'>Animal</div><div class='badge'>Honest</div><div class='badge'>Education</div>"
-         },
-         {
-            time: 16,
-            text: "<div class='badge'>Briliant</div><div class='badge'>Example</div><div class='badge'>Tree</div>"
-         },
-         {
-            time: 23.6,
-            text: "<div class='badge'>Find</div> <div class='badge'>Truth</div> <div class='badge'>Jungle</div>"
-         },
-         {
-            time: 28,
-            text: "<div class='badge'>Technology</div> <div class='badge'>Forest</div> <div class='badge'>World</div>"
-         },
-         {
-            time: 36,
-            text: "<div class='badge'>Happy</div> <div class='badge'>Book</div>"
-         }
-      ]
-   });
-  
-   
-/* 
-   $(".prev").click(function(){
-      shobdho.markers.prev();
-   });
-   $(".remove").click(function(){
-      shobdho.markers.remove([1,2]);
-   })
-   $(".add").click(function(){
-      shobdho.markers.add([{
-            time: 40,
-            text: "I'm NEW"
-         }]);
-   });
-   $(".reset").click(function(){
-      shobdho.markers.reset([{
-            time: 40,
-            text: "I'm NEW"
-         },
-         {
-            time:20,
-            text: "Brank new"
-         }]);
-   });
-   $(".destroy").click(function(){
-      shobdho.markers.destroy();
-   })
-*/
-    var searchBox='<form id="demo-2"><input type="search" placeholder="Search" id="tags"></form>';
-    
+	  markers: sampleMarker
+});
+
+var searchBox='<form id="demo-2"><input type="search" placeholder="Search" id="tags"></form>';
 	// fire up the plugin
-	shobdho.overlay({
+shobdho.overlay({
       content: searchBox,
       overlays: [{
         start: 'play',
         align: 'bottom-right'
       }]
-    });   
+});   
 </script>
 </html>
