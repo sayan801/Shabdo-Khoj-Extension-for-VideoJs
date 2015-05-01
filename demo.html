@@ -15,8 +15,8 @@
   <script src="assests/js/video.js"></script>
   <!-- Markers js -->
   
-  <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="assests/js/jquery-2.0.3.min.js"></script>
+  <script src="assests/js/jquery-ui.js"></script>
   <script src='assests/js/videojs-markers.js'></script>
   <!-- Overlay js -->
   <script src='assests/js/videojs-overlay.js'></script>
@@ -27,37 +27,23 @@
 
 </head>
 <body>
-
-  <video id="test_video" controls preload="none" class="video-js vjs-default-skin" width="640" height="264"
-      poster="http://video-js.zencoder.com/oceans-clip.png"
-      data-setup="{}">
-    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
-    <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
-    <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
-    <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-    <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-  </video>
-  <br/>
-  <!--
-  <span class='next badge'>Next</span>
-  <span class='prev'>Prev</span>
-  <span class='remove'>Remove</span>
-  <span class='add'>Add</span>
-  <span class='reset'>Reset</span>
-  <span class='destroy'>Destroy</span>
-  -->
-  <div id="newVal"></div>
+    <video id="test_video" controls preload="none" class="video-js vjs-default-skin" width="1280" height="720">
+	<source src="shobdokhojVideoFileName" type="shobdokhojVideoFileType">
+	<!--
+      <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+      <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+	-->
+    </video>
 </body>
 <script>
 var sampleMarker = [];//formatted array of tag for markers
 //parsing json file
-$.getJSON( "sample.json", function( data ) {
+$.getJSON( "shobdokhojJsonFileName", function( data ) {
 
-     $.each( data.transcript.text, function( key , value ) {   
+     $.each( data, function( key , value ) {   
 	        var output="<p>";
 			var startTime = value.start ;
-			var tagValue = value.text;
+			var tagValue = value.tags;
 			$.trim(tagValue);
 			tagValue = tagValue.replace(/\s+/g, '</div><div class="badge">');
 			tagValue = "<div class='badge'>" + tagValue;
